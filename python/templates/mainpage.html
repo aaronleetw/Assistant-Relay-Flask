@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Smart Controller</title>
+    <link rel="icon" href='/static/logo.png' />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href='/static/project.css' />
+</head>
+
+<body>
+    <div class="inside">
+        <div style="width:100%;">
+            <h1>Smart Controller</h1>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    {% for place in places %}
+                    <td>
+                        <form action="/{% if places[place] == 'off' %}on{%else%}off{%endif%}/{{place}}" method="GET">
+                            <div class="device">
+                                <div class="device-name">
+                                    <h2>{{ place }}</h2>
+                                </div>
+                                <div class="device-status">
+                                    <img src="/static/bulb-{{places[place]}}.png" alt="">
+                                </div>
+                                {% if places[place] == 'off' %}
+                                <button class="btn btn-primary" onclick="loading()">Turn On</button>
+                                {% elif places[place] == 'on' %}
+                                <button class="btn btn-primary" onclick="loading()">Turn Off</button>
+                                {% else %}
+                                <button class="btn btn-primary" disabled onclick="loading()">--------</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+    <footer>
+        Created by Aaron Lee.
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script type="text/javascript">
+        function loading() {
+            $("#loading").show();
+            $("#content").hide();
+        }
+    </script>
+
+</body>
+
+</html>
